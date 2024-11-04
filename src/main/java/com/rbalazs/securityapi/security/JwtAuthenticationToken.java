@@ -8,8 +8,6 @@ import java.util.Collection;
 
 /**
  * Represents the Authentication Token once a given User logged-in into the App.
- *
- * @author Rodrigo Balazs
  */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 

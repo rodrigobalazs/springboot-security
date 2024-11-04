@@ -32,7 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     // whenever a CURL executes this is the first method executes, check whether the Token is present or not in the request Header
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {
         String token = jwtTokenUtils.resolveToken(request);
         if (token != null && jwtTokenUtils.validateToken(token, userDetailsService.loadUserByUsername(jwtTokenUtils.extractUsername(token)))) {

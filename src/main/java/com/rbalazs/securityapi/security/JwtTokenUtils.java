@@ -1,10 +1,13 @@
 package com.rbalazs.securityapi.security;
 
+import com.rbalazs.securityapi.enums.AppValidations;
+import com.rbalazs.securityapi.exception.CustomException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -26,7 +29,18 @@ public class JwtTokenUtils {
     @Value("${jwt.token.expiration}")
     private long jwtTokenExpirationTime;
 
-    public String generateToken(String userEmail, String userRole) {
+    /**
+     * Generates a JWT Authentication Token based on the user email address and role given as parameters.
+     *
+     * @param userEmail the user email address
+     * @param userRole the user role
+     * @return the generated JWT Authentication Token associated to the user email address/role.
+     */
+    public String generateToken(final String userEmail, final String userRole) {
+
+        if(StringUtils.isEmpty(jwtTokenSecretKey)){
+            throw new CustomException(AppValidations.EMPTY_SECRET_KEY);
+        }
 
         Date now = new Date();
         Date expirationTime = new Date(now.getTime() + jwtTokenExpirationTime);
@@ -40,16 +54,16 @@ public class JwtTokenUtils {
                 .compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(final String token, final UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    public String extractUsername(String token) {
+    public String extractUsername(final String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    public String resolveToken(HttpServletRequest request) {
+    public String resolveToken(final HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
@@ -57,7 +71,7 @@ public class JwtTokenUtils {
         return null;
     }
 
-    private Boolean isTokenExpired(String token) {
+    private Boolean isTokenExpired(final String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
     }
 
@@ -65,7 +79,7 @@ public class JwtTokenUtils {
         return Keys.hmacShaKeyFor(jwtTokenSecretKey.getBytes());
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(final String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()

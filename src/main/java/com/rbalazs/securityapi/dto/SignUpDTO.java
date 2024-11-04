@@ -3,7 +3,8 @@ package com.rbalazs.securityapi.dto;
 import lombok.Data;
 
 @Data
-public class AuthenticationRequest {
+public class SignUpDTO {
     private String email;
     private String password;
+    private String role;
 }

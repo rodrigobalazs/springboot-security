@@ -13,4 +13,6 @@ public enum AppConstants {;
 
     public static final String PRODUCT_SOFA_NAME = "Rustic Sofa";
     public static final Integer PRODUCT_SOFA_AVAILABLE_QUANTITY = 10;
+
+    public static final String NEW_USER_REGISTRATION = "a new User has been registered with email: ";
 }
