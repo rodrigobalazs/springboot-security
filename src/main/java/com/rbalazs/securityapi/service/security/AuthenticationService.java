@@ -6,6 +6,7 @@ import com.rbalazs.securityapi.exception.CustomException;
 import com.rbalazs.securityapi.security.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -46,7 +47,11 @@ public class AuthenticationService {
         }
 
         Authentication authentication;
-        authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        try {
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        } catch (BadCredentialsException ex) {
+            throw new CustomException(AppValidations.WRONG_PASSWORD);
+        }
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String role = userDetails.getAuthorities().stream()

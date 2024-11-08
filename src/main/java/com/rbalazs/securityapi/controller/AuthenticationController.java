@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.rbalazs.securityapi.enums.AppConstants;
 
+/**
+ * Authentication REST Controller.
+ */
 @RestController
 @RequestMapping("/authentication")
 public class AuthenticationController {

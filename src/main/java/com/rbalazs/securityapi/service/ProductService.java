@@ -8,8 +8,6 @@ import java.util.List;
 
 /**
  * Product Service.
- *
- * @author Rodrigo Balazs
  */
 @Service
 public class ProductService {
@@ -21,21 +19,10 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    /**
-     * Retrieves a list with all the Products
-     *
-     * @return a list of {@link Product}
-     */
     public List<Product> getProducts() {
         return productRepository.findAll();
     }
 
-    /**
-     * Save a new Product into the repository.
-     *
-     * @param product the {@link Product} to save
-     * @return a {@link Product} with the persisted product
-     */
     public Product save(Product product) {
         productRepository.save(product);
         return product;

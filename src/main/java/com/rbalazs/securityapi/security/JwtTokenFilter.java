@@ -1,9 +1,14 @@
 package com.rbalazs.securityapi.security;
 
+import com.rbalazs.securityapi.controller.ProductController;
+import com.rbalazs.securityapi.enums.AppValidations;
+import com.rbalazs.securityapi.exception.CustomException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +26,7 @@ import java.io.IOException;
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
     private JwtTokenUtils jwtTokenUtils;
     private UserDetailsService userDetailsService;
 
@@ -34,7 +40,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {
+        LOGGER.info("starts to execute jwtTokenFilter.doFilterInternal()");
         String token = jwtTokenUtils.resolveToken(request);
+
         if (token != null && jwtTokenUtils.validateToken(token, userDetailsService.loadUserByUsername(jwtTokenUtils.extractUsername(token)))) {
             String username = jwtTokenUtils.extractUsername(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);

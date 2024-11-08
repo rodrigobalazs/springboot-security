@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.Validate;
 
+/**
+ * Represents a given Product.
+ */
 @Entity
 @Getter
 @Setter
@@ -25,8 +28,8 @@ public class Product {
     /**
      * Creates a new Product.
      *
-     * @param theName the product name, cannot be null nor empty.
-     * @param theAvailableQuantity the product available quantity, cannot be negative.
+     * @param theName the product name
+     * @param theAvailableQuantity the product available quantity
      */
     public Product(final String theName, final int theAvailableQuantity) {
         Validate.notEmpty(theName, "The product name cannot be null nor empty");

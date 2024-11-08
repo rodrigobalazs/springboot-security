@@ -3,8 +3,6 @@ package com.rbalazs.securityapi.exception;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * Used to intercept {@link CustomException}
@@ -12,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @author Rodrigo Balazs
  */
 @ControllerAdvice
-public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+public class CustomExceptionHandler {
 
     /**
      * Intercepts a given {@link CustomException} in order to return to the view an HTTP RESPONSE with the exception
@@ -22,7 +20,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
      * {the User was not found in the Application}
      */
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<Object> handleCustomException(final CustomException ex, final WebRequest request) {
+    public ResponseEntity<Object> handleCustomException(final CustomException ex) {
         return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
     }
 }

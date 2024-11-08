@@ -28,24 +28,12 @@ public class UserService {
         this.bcryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
-    /**
-     * Retrieves a User by the email address given as parameter.
-     *
-     * @param email the email address
-     * @return a {@link User}
-     */
     public User getUserByEmail(final String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
 
     /**
      * Creates/Saves a new User into the repository.
-     *
-     * @param email the user email address
-     * @param password the user password
-     * @param roleName the assigned role
-     *
-     * @return a {@link User} with the persisted user
      */
     public User create(final String email, final String password, final String roleName) {
 

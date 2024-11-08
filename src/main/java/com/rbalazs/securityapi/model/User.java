@@ -11,15 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-@Entity
-@Getter
-@Setter
 /**
  * Represents a given User, a User could be associated to a specific {@link Role} at most.
  * For this specific app, UserDetails.username will be represented by 'email'
  *
  * @author Rodrigo Balazs
  */
+@Entity
+@Getter
+@Setter
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,9 @@ public class User implements UserDetails {
     /**
      * Creates a new User.
      *
-     * @param theEmail the user email, cannot be null nor empty.
+     * @param theEmail the user email address
+     * @param thePassword the user password
+     * @param theRole the assigned role
      */
     public User(final String theEmail, final String thePassword, final Role theRole) {
         Validate.notEmpty(theEmail, "The user email cannot be null nor empty");
