@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Authentication API", description = "API endpoints related to User´s Authentication")
 public interface AuthenticationControllerSwagger {
 
-    @Operation(summary = "Logins a given User. The user´s details (email,password) could be taken from AuthenticationDTO. " +
-                         "In case the User logins successfully, this operation returns an Authentication Token associated to the logged-in User")
+    @Operation(summary = "Sign-in a given User into the App",
+            description = "In case the User authenticates successfully into the App, this operation returns an " +
+                    "Authentication Token associated to the logged-in User")
     public String login(@RequestBody AuthenticationDTO authenticationDTO);
 
-    @Operation(summary = "Sign-up / Register a given User. The user´s details (email,password,role) could be taken from SignUpDTO")
+    @Operation(summary = "Sign-up / Register a new User into the App")
     public ResponseEntity<String> signUp(@RequestBody SignUpDTO signUpDTO);
 }

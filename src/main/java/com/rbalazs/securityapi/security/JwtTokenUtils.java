@@ -4,7 +4,6 @@ import com.rbalazs.securityapi.enums.AppValidations;
 import com.rbalazs.securityapi.exception.CustomException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,27 +23,27 @@ import java.util.Date;
 @Component
 public class JwtTokenUtils {
 
-    @Value("${jwt.token.secret.key}")
-    private String jwtTokenSecretKey;
+    @Value("${jwt.auth.token.secret.key}")
+    private String jwtAuthTokenSecretKey;
 
-    @Value("${jwt.token.expiration}")
-    private long jwtTokenExpirationTime;
+    @Value("${jwt.auth.token.expiration.time}")
+    private long jwtAuthTokenExpirationTime;
 
     /**
-     * Generates a JWT Authentication Token based on the user email address and role given as parameters.
+     * Generates a JWT Authentication Token based on the user´s email address and user´s role given as parameters.
      *
-     * @param userEmail the user email address
-     * @param userRole the user role
-     * @return the generated JWT Authentication Token associated to the user email address/role.
+     * @param userEmail the user´s email address
+     * @param userRole the user´s role
+     * @return the generated JWT Authentication Token associated to the user´s email address/role.
      */
     public String generateToken(final String userEmail, final String userRole) {
 
-        if(StringUtils.isEmpty(jwtTokenSecretKey)){
+        if(StringUtils.isEmpty(jwtAuthTokenSecretKey)){
             throw new CustomException(AppValidations.EMPTY_SECRET_KEY);
         }
 
         Date now = new Date();
-        Date expirationTime = new Date(now.getTime() + jwtTokenExpirationTime);
+        Date expirationTime = new Date(now.getTime() + jwtAuthTokenExpirationTime);
 
         return Jwts.builder()
                 .setSubject(userEmail)
@@ -55,6 +54,10 @@ public class JwtTokenUtils {
                 .compact();
     }
 
+    /**
+     * Validates whether the JWT Authentication Token given as parameter is valid or not for the user
+     * given as parameter.
+     */
     public Boolean validateToken(final String token, final UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
@@ -77,7 +80,7 @@ public class JwtTokenUtils {
     }
 
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(jwtTokenSecretKey.getBytes());
+        return Keys.hmacShaKeyFor(jwtAuthTokenSecretKey.getBytes());
     }
 
     private Claims extractAllClaims(final String token) {

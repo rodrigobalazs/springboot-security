@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +22,17 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Product API", description = "API endpoints related to Products")
 public interface ProductControllerSwagger {
 
-    @Operation(summary = "Retrieves all Products")
+    @Operation(summary = "Retrieves all Products ( requires an User with Customer Role or Admin Role to execute )")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "returns a JSON Array with all the Products",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema(schema = @Schema(implementation = Product.class)))})})
     public ResponseEntity<List<Product>> getProducts();
 
-    @Operation(summary = "Saves a new Product")
+    @Operation(summary = "Saves a new Product ( requires an User with Admin Role to execute )")
+    @SecurityRequirement(name = "Bearer_Authentication")
     public Product saveProduct(@RequestBody Product product);
 }
+
+

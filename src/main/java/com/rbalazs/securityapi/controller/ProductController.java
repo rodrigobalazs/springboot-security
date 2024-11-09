@@ -1,5 +1,6 @@
 package com.rbalazs.securityapi.controller;
 
+import com.rbalazs.securityapi.controller.swagger.ProductControllerSwagger;
 import com.rbalazs.securityapi.model.Product;
 import com.rbalazs.securityapi.service.ProductService;
 import org.slf4j.Logger;
@@ -13,10 +14,13 @@ import java.util.List;
 
 /**
  * Product REST Controller.
+ * API Documentation/Swagger at => http://<project_url>/swagger-ui/index.html
+ *
+ * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class ProductController implements ProductControllerSwagger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
@@ -27,14 +31,14 @@ public class ProductController {
     }
 
     @GetMapping("/getProducts")
-    @PreAuthorize("hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<List<Product>> getProducts() {
         LOGGER.info("starts to execute productController.getProducts()");
         List<Product> products = productService.getProducts();
         return ResponseEntity.ok(products);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Product saveProduct(@RequestBody Product product) {
         LOGGER.info("starts to execute productController.saveProduct()");

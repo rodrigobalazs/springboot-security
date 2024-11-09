@@ -1,8 +1,5 @@
 package com.rbalazs.securityapi.security;
 
-import com.rbalazs.securityapi.controller.ProductController;
-import com.rbalazs.securityapi.enums.AppValidations;
-import com.rbalazs.securityapi.exception.CustomException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +16,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * Represents the JWT Token Filter which is executed once an HTTP REQUEST is made.
+ * Represents the JWT Token Filter which is executed as part of the Spring Security Filters Chain once an
+ * HTTP REQUEST is made.
  *
  * @author Rodrigo Balazs
  */
@@ -31,12 +29,17 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public JwtTokenFilter(JwtTokenUtils jwtTokenUtils, UserDetailsService userDetailsService) {
+    public JwtTokenFilter(final JwtTokenUtils jwtTokenUtils, final UserDetailsService userDetailsService) {
         this.jwtTokenUtils = jwtTokenUtils;
         this.userDetailsService = userDetailsService;
     }
 
-    // whenever a CURL executes this is the first method executes, check whether the Token is present or not in the request Header
+    /**
+     * This method is executed whenever an HTTP REQUEST is made, first checks whether the Authentication Token is present in
+     * the HTTP Request Header. If the Token is present, validates the Token and sets the {@link JwtAuthenticationToken}
+     * (which includes user´s details) into the SecurityContextHolder.
+     * If the Authentication Token is not present, it continues the Filter Chain.
+     */
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {

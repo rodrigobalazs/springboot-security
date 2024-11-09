@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * Spring Security Configuration
+ * Spring Security Configuration class.
  *
  * @author Rodrigo Balazs
  */
@@ -36,7 +37,9 @@ public class SecurityConfig {
     }
 
     /**
-     * Disable CSRF for REST endpoints
+     * Adds the {@link JwtTokenFilter} into the Spring Security Filters Chain.
+     * Also configures Spring Security 'Authorization Rules' (based on some Roles) for the REST endpoints.
+     * CSRF will be disabled for REST endpoints.
      */
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
@@ -64,5 +67,14 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Ignores spring security´s Authorization Rules over the API Documentation / Swagger url´s
+     * ( e.g http://<project_url>/swagger-ui/index.html )
+     */
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers(AppConstants.SWAGGER_UI_URL, AppConstants.SWAGGER_UI_URL_2);
     }
 }

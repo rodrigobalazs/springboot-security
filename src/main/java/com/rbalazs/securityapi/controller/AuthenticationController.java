@@ -1,5 +1,6 @@
 package com.rbalazs.securityapi.controller;
 
+import com.rbalazs.securityapi.controller.swagger.AuthenticationControllerSwagger;
 import com.rbalazs.securityapi.dto.AuthenticationDTO;
 import com.rbalazs.securityapi.dto.SignUpDTO;
 import com.rbalazs.securityapi.model.User;
@@ -14,10 +15,13 @@ import com.rbalazs.securityapi.enums.AppConstants;
 
 /**
  * Authentication REST Controller.
+ * API Documentation/Swagger at => http://<project_url>/swagger-ui/index.html
+ *
+ * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/authentication")
-public class AuthenticationController {
+public class AuthenticationController implements AuthenticationControllerSwagger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
     private AuthenticationService authenticationService;

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * User Details Service Implementation
+ * User Details Service implementation of core spring security service {@link UserDetailsService}
+ *
+ * @author Rodrigo Balazs
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -23,6 +25,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Whenever a given User sign-in into the App, Spring Security loads the User´s details
+     */
     @Override
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(email);

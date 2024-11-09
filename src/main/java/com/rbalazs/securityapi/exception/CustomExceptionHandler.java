@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- * Used to intercept {@link CustomException}
- *
- * @author Rodrigo Balazs
+ * Used to intercept {@link CustomException}.
  */
 @ControllerAdvice
 public class CustomExceptionHandler {

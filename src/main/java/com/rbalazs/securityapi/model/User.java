@@ -7,13 +7,14 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.Collections;
 
 /**
  * Represents a given User, a User could be associated to a specific {@link Role} at most.
- * For this specific app, UserDetails.username will be represented by 'email'
+ * For this specific Application 'email' property will represent spring security 'UserDetails.username'
  *
  * @author Rodrigo Balazs
  */
@@ -26,6 +27,8 @@ public class User implements UserDetails {
     private Long id;
 
     private String email;
+
+    /** user´s password, will be stored encrypted via spring security {@link BCryptPasswordEncoder} */
     private String password;
 
     @ManyToOne
@@ -42,15 +45,18 @@ public class User implements UserDetails {
      * @param theRole the assigned role
      */
     public User(final String theEmail, final String thePassword, final Role theRole) {
-        Validate.notEmpty(theEmail, "The user email cannot be null nor empty");
-        Validate.notEmpty(thePassword, "The user password cannot be null nor empty");
-        Validate.notNull(theRole, "The user role cannot be null");
+        Validate.notEmpty(theEmail, "The user´s email cannot be null nor empty");
+        Validate.notEmpty(thePassword, "The user´s password cannot be null nor empty");
+        Validate.notNull(theRole, "The user´s role cannot be null");
 
         email = theEmail;
         password = thePassword;
         role = theRole;
     }
 
+    /**
+     * Retrieves the User´s Role, this is an spring security method.
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role.getName()));
