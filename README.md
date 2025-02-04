@@ -1,13 +1,14 @@
 ## Spring Boot Security
-This repository contains an Spring Boot Application which provides an API for Product´s management.
+This repository contains an Spring Boot Application which provides a securized API for Product´s management.
 The App it´s configured with Spring Security. The main goal is to show 2 of the main features of Spring Security:<br/>
 #### a) User´s Authentication via JWT Authentication Token:
 -a given User will be able to sign-up into the Application via POST /signup. After registration, the User will be able
-to sign-in into the App via POST /login providing a user email and password. If success, the endpoint will return an
+to sign-in into the App via POST /login ( providing a user email and password ). If success, the endpoint will return an
 Authentication Token which will allow the User to perform several operations related to Product´s management via some
 REST endpoints.
 #### b) User´s Authorization via Roles:
--some Product´s API endpoints will be accessible only for specific Roles (e.g Product´s Creation is only accessible for Admin Roles)
+-some Product´s API endpoints will be accessible only for specific Roles
+-e.g Product´s Creation is only accessible for Admin Roles
 
 <br/>
 
@@ -31,17 +32,17 @@ git clone https://github.com/rodrigobalazs/springboot-security.git;
 cd springboot-security;
 
 # start a mysql docker container
-docker run --name security_db -e MYSQL_DATABASE=security_db -e MYSQL_USER=user \
-    -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=pass \
+docker run --name security_db -e MYSQL_DATABASE=security_db -e MYSQL_USER=<user> \
+    -e MYSQL_PASSWORD=<pass> -e MYSQL_ROOT_PASSWORD=<pass> \
     -p 3306:3306 -d mysql:latest;
 
 # make sure to update application.properties with the
 # MYSQL_USER and MYSQL_PASSWORD values defined in the previous point
-spring.datasource.username=user
-spring.datasource.password=pass
+spring.datasource.username=<user>
+spring.datasource.password=<pass>
 
-# also, make sure to define into the application.properties a value for the authentication 
-# token´s 'secret key' and 'expiration time'
+# also, make sure to set into the application.properties the 'secret key' and 'expiration time'
+# required for JWT authentication
 jwt.auth.token.secret.key=<value>
 jwt.auth.token.expiration.time=<value_in_milliseconds>
 
@@ -62,7 +63,7 @@ curl -X POST http://localhost:8080/authentication/signup \
      -d '{"email": "james.lexwey@example.com", "password": "fewf", "role": "role_admin"}';
 ```
 
-#### 2. then, proceed to sing-in the previous User, should retrieve a valid <authentication_token>
+#### 2. then, proceed to sign-in the previous User, should retrieve a valid <authentication_token>
 ```
 curl -X POST http://localhost:8080/authentication/login \
      -H 'accept: application/json' \

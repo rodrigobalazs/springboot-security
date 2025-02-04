@@ -34,12 +34,12 @@ public class AuthenticationService {
     }
 
     /**
-     * Sign-in into the Application a given User represented by the email address and password given as parameter, once
-     * logged-in, generates a JWT Authentication Token.
+     * Sign-in into the Application a given User ( represented by the 'email address' and 'password' given as parameter ).
+     * Once logged-in, generates a JWT Authentication Token associated to the User.
      *
      * @param email the user´s email address to try to sign-in into the app
      * @param password the user´s password
-     * @return a JWT Authentication Token in case the login is successful, empty otherwise.
+     * @return a JWT Authentication Token associated to the user in case the login is successful, empty otherwise.
      */
     public String login(final String email, final String password) {
 

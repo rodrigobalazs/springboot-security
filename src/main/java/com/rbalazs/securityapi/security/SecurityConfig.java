@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * Spring Security Configuration class.
+ * Spring Security Main Configuration class.
  *
  * @author Rodrigo Balazs
  */
@@ -38,7 +38,8 @@ public class SecurityConfig {
 
     /**
      * Adds the {@link JwtTokenFilter} into the Spring Security Filters Chain.
-     * Also configures Spring Security 'Authorization Rules' (based on some Roles) for the REST endpoints.
+     * Also configures Spring Security 'Authentication' and 'Authorization Rules' (based on some Roles)
+     * for the REST endpoints.
      * CSRF will be disabled for REST endpoints.
      */
     @Bean
@@ -70,7 +71,7 @@ public class SecurityConfig {
     }
 
     /**
-     * Ignores spring security´s Authorization Rules over the API Documentation / Swagger url´s
+     * Ignores to apply spring security´s Authorization Rules over the URLs related to API Documentation
      * ( e.g http://<project_url>/swagger-ui/index.html )
      */
     @Bean

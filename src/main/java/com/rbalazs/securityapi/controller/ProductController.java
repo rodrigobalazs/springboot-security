@@ -38,8 +38,8 @@ public class ProductController implements ProductControllerSwagger {
         return ResponseEntity.ok(products);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Product saveProduct(@RequestBody Product product) {
         LOGGER.info("starts to execute productController.saveProduct()");
         return productService.save(product);

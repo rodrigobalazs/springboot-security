@@ -14,7 +14,6 @@ import java.util.Collections;
 
 /**
  * Represents a given User, a User could be associated to a specific {@link Role} at most.
- * For this specific Application 'email' property will represent spring security 'UserDetails.username'
  *
  * @author Rodrigo Balazs
  */
@@ -26,9 +25,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /** user´s email, represents spring security 'UserDetails.username' */
     private String email;
 
-    /** user´s password, will be stored encrypted via spring security {@link BCryptPasswordEncoder} */
+    /** user´s password, the password will be stored encrypted/hashed via spring security {@link BCryptPasswordEncoder} */
     private String password;
 
     @ManyToOne
@@ -55,7 +55,7 @@ public class User implements UserDetails {
     }
 
     /**
-     * Retrieves the User´s Role, this is an spring security method.
+     * Retrieves the User´s Role ( a.k.a Authority ), this is an spring security method.
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

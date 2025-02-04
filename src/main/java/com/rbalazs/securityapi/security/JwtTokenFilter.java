@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * Represents the JWT Token Filter which is executed as part of the Spring Security Filters Chain once an
+ * Represents the JWT Token Filter which is executed as part of the Spring Security Filters Chain once a given
  * HTTP REQUEST is made.
  *
  * @author Rodrigo Balazs
@@ -38,7 +38,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
      * This method is executed whenever an HTTP REQUEST is made, first checks whether the Authentication Token is present in
      * the HTTP Request Header. If the Token is present, validates the Token and sets the {@link JwtAuthenticationToken}
      * (which includes user´s details) into the SecurityContextHolder.
-     * If the Authentication Token is not present, it continues the Filter Chain.
+     * If the Authentication Token is not present, continues to execute the remaining filters.
      */
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * User Details Service implementation of core spring security service {@link UserDetailsService}
+ * User´s Details Service implementation of core spring security service {@link UserDetailsService}
  *
  * @author Rodrigo Balazs
  */

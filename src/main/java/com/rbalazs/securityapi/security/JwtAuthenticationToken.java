@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 /**
- * Represents the Authentication Token once a given User login into the App.
+ * Represents the Authentication Token associated to a given User once it´s sucessfully logged-in into the Application.
  */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
