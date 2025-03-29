@@ -31,10 +31,6 @@ public class JwtTokenUtils {
 
     /**
      * Generates a JWT Authentication Token based on the user´s email address and user´s role given as parameters.
-     *
-     * @param userEmail the user´s email address
-     * @param userRole the user´s role
-     * @return the generated JWT Authentication Token associated to the user.
      */
     public String generateToken(final String userEmail, final String userRole) {
 

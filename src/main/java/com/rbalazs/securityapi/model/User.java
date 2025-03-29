@@ -39,10 +39,6 @@ public class User implements UserDetails {
 
     /**
      * Creates a new User.
-     *
-     * @param theEmail the user email address
-     * @param thePassword the user password
-     * @param theRole the assigned role
      */
     public User(final String theEmail, final String thePassword, final Role theRole) {
         Validate.notEmpty(theEmail, "The user´s email cannot be null nor empty");
@@ -55,7 +51,7 @@ public class User implements UserDetails {
     }
 
     /**
-     * Retrieves the User´s Role ( a.k.a Authority ), this is an spring security method.
+     * Retrieves the User´s Role ( a.k.a Authority )
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

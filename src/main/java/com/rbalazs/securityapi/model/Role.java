@@ -27,8 +27,6 @@ public class Role {
 
     /**
      * Creates a new Role.
-     *
-     * @param theName the role name, cannot be null nor empty.
      */
     public Role(final String theName) {
         Validate.notEmpty(theName, "The role name cannot be null nor empty");

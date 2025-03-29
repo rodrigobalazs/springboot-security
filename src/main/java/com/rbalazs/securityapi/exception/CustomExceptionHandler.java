@@ -13,9 +13,6 @@ public class CustomExceptionHandler {
     /**
      * Intercepts a given {@link CustomException} in order to return to the view an HTTP RESPONSE with the exception
      * message.
-     *
-     * @return an HTTP RESPONSE with a given HTTP Status and a JSON body with the exception message e.g =>
-     * {the User was not found in the Application}
      */
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<Object> handleCustomException(final CustomException ex) {
