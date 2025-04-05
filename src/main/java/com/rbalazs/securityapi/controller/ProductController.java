@@ -15,8 +15,6 @@ import java.util.List;
 /**
  * Product REST Controller.
  * API Documentation/Swagger at => http://<project_url>/swagger-ui/index.html
- *
- * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/products")

@@ -12,8 +12,6 @@ import java.util.Optional;
 
 /**
  * User´s Details Service implementation of core spring security service {@link UserDetailsService}
- *
- * @author Rodrigo Balazs
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

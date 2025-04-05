@@ -17,8 +17,6 @@ import java.util.Date;
 
 /**
  * Provides some utilities to generate/validate JWT Authentication Tokens.
- *
- * @author Rodrigo Balazs
  */
 @Component
 public class JwtTokenUtils {

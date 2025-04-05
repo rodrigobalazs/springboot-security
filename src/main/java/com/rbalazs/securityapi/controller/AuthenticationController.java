@@ -16,8 +16,6 @@ import com.rbalazs.securityapi.enums.AppConstants;
 /**
  * Authentication REST Controller.
  * API Documentation/Swagger at => http://<project_url>/swagger-ui/index.html
- *
- * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/authentication")
